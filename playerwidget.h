@@ -84,6 +84,7 @@ private Q_SLOTS:
 signals:
     void playbackStop();
     void frameChanged();
+    void playbackPlay();
 };
 
 #endif // PLAYERWIDGET_H

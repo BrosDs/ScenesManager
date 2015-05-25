@@ -160,6 +160,7 @@ void PlayerWidget::playPause()
 {
     if(m_player->file()!="")
         playState = !playState;
+    else return;
 
     if (!m_player->isPlaying()) {
             m_player->play();
@@ -214,6 +215,7 @@ void PlayerWidget::updateSlider()
 {
 	m_slider->setRange(0, int(m_player->duration() / 1000LL));
 	m_slider->setValue(int(m_player->position() / 1000LL));
+    emit playbackPlay();
 }
 
 //TODO: Check formula
@@ -224,7 +226,12 @@ void PlayerWidget::updateSlider()
 *	@see toPreviousFrame()
 */
 void PlayerWidget::previousFrame(){
-	m_player->setPosition(m_player->position() - m_player->statistics().video.frame_rate);
+    //m_player->setPosition(m_player->position() - m_player->statistics().video.frame_rate);
+    qint64 frameNum = currentFrameNumber();
+    //frameNum-=1.0;
+    m_player->setPosition((frameNum/m_player->statistics().video.frame_rate) * 1000LL);
+    fprintf(stdout,"currentFrameNumber: %d\n",frameNum);
+    emit frameChanged();
 }
 
 //TODO: Check formula
@@ -235,7 +242,13 @@ void PlayerWidget::previousFrame(){
 *	@see toNextFrame()
 */
 void PlayerWidget::nextFrame(){
-	m_player->setPosition(m_player->position() + m_player->statistics().video.frame_rate);
+    //m_player->setPosition(m_player->position() + m_player->statistics().video.frame_rate);
+
+    qint64 frameNum = currentFrameNumber();
+    frameNum+=2.0;
+    m_player->setPosition((frameNum/m_player->statistics().video.frame_rate) * 1000LL);
+    fprintf(stdout,"currentFrameNumber: %d\n",currentFrameNumber());
+    emit frameChanged();
 }
 
 /*! \brief Get current frame number.
@@ -247,7 +260,7 @@ void PlayerWidget::nextFrame(){
 *	@see nextFrameNumber()
 */
 qint64 PlayerWidget::currentFrameNumber(qint64 ofFrame){
-	return ((ofFrame*m_player->statistics().video.frame_rate) / 1000LL);
+    return ((ofFrame*m_player->statistics().video.frame_rate) / 1000LL);
 }
 
 
@@ -305,8 +318,8 @@ qint64 PlayerWidget::currentFrameNumber(){
 *	@return previous frame number.
 */
 qint64 PlayerWidget::previousFrameNumber(){
-	qint64 prevFrame = m_player->position() - m_player->statistics().video.frame_rate;
-	return currentFrameNumber(prevFrame);
+    qint64 frameNum = currentFrameNumber();
+    return currentFrameNumber(--frameNum);
 }
 
 //TODO: Check formula
@@ -317,8 +330,7 @@ qint64 PlayerWidget::previousFrameNumber(){
 *	@return previous frame number.
 */
 qint64 PlayerWidget::previousFrameNumber(qint64 ofFrame){
-	qint64 prevFrame = ofFrame - m_player->statistics().video.frame_rate;
-	return currentFrameNumber(prevFrame);
+    return currentFrameNumber(--ofFrame);
 }
 
 //TODO: Check formula
@@ -328,8 +340,8 @@ qint64 PlayerWidget::previousFrameNumber(qint64 ofFrame){
 *	@return next frame number.
 */
 qint64 PlayerWidget::nextFrameNumber(){
-	qint64 prevFrame = m_player->position() + m_player->statistics().video.frame_rate;
-	return currentFrameNumber(prevFrame);
+    qint64 frameNum = currentFrameNumber();
+    return currentFrameNumber(++frameNum);
 }
 
 //TODO: Check formula
@@ -340,8 +352,7 @@ qint64 PlayerWidget::nextFrameNumber(){
 *	@return next frame number.
 */
 qint64 PlayerWidget::nextFrameNumber(qint64 ofFrame){
-    qint64 prevFrame = ofFrame + m_player->statistics().video.frame_rate;
-	return currentFrameNumber(prevFrame);
+    return currentFrameNumber(++ofFrame);
 }
 
 /*! \brief Set media to display.

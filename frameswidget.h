@@ -17,14 +17,17 @@ class FramesWidget : public QWidget
     Q_OBJECT
 
 private:
-    static const int frame_num = 4  ;
+    int frame_num;
+    int frame_w;
+    int frame_h;
+
     QHBoxLayout *base;
 
     QtAV::AVPlayer *player;
 
-    QtAV::VideoPreviewWidget *prev[frame_num];
+    QtAV::VideoPreviewWidget **prev;
 
-
+    void calculateFrameNumberAndSize();
 
 
 
