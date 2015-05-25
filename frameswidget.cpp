@@ -23,26 +23,46 @@ FramesWidget::FramesWidget(QWidget *parent) : QWidget(parent)
     base = new QHBoxLayout();
     setLayout(base);
 
-    frame_num=10;
-
     /** Widget minimum sizes */
-    //setFixedSize(800,280);
+    setFixedSize(800,280);
 
     QPalette Pal(palette());
 
     // set black background
-    Pal.setColor(QPalette::Background, Qt::white);
+    Pal.setColor(QPalette::Background, Qt::black);
     this->setAutoFillBackground(true);
     this->setPalette(Pal);
+}
+
+
+void FramesWidget::setPlayer(QtAV::AVPlayer* p){
+    this->player=p;
+}
+
+//TODO: check this
+void FramesWidget::drawFrames(){
+    clearFrames();
+
+    for(int i = 0; i < frame_num; i++){
+        prev[i]=new VideoPreviewWidget();
+        prev[i]->setFile(player->file());
+        prev[i]->setTimestamp(player->position()+i*1000);
+        prev[i]->preview();
+        prev[i]->resize(200,280);
+        base->addWidget(prev[i]);
+    }
 
 }
 
-void FramesWidget::paintEvent(QPaintEvent*) {
-    return;
-    QPainter painter(this);
+void FramesWidget::clearFrames(){
 
-    int width = size().width() - 3;
-    int height = size().height() - 5;
-
-    painter.fillRect(0, 0, width, height, QColor(0,0,0));
+    if ( base->layout() != NULL )
+    {
+        QLayoutItem* item;
+        while ( ( item = base->layout()->takeAt( 0 ) ) != NULL )
+        {
+            delete item->widget();
+            delete item;
+        }
+    }
 }

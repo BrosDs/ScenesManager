@@ -108,17 +108,6 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
     setFixedSize(480,320);
 }
 
-//@Override
-void PlayerWidget::paintEvent(QPaintEvent*) {
-    return;
-    QPainter painter(this);
-
-    int width = size().width() - 3;
-    int height = size().height() - 5;
-
-    painter.fillRect(0, 0, width, height, QColor(0,0,0));
-}
-
 /*************************************************************************** PRIVATE METHODS ************/
 /*! \brief initialize player icons.
 *

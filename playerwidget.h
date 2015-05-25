@@ -49,8 +49,6 @@ private:
 
     qint64 currentFrameNumber(qint64);
 
-    void paintEvent(QPaintEvent*);
-
 public:
 	explicit PlayerWidget(QWidget *parent = 0);
 	

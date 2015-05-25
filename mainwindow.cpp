@@ -9,15 +9,23 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
     QWidget *tl;
 
     QVBoxLayout *base = new QVBoxLayout();
-    setLayout(base);
+    //setLayout(base);
+
+    QWidget *widget = new QWidget();
+    widget->setLayout(base);
+    setCentralWidget(widget);
 
     PlayerWidget *p = new PlayerWidget(pl);
-    base->addWidget(pl);
+    base->addWidget(p);
 
 
     FramesWidget *f = new FramesWidget(tl);
-    base->addWidget(tl);
+    base->addWidget(f);
 
-    //tl->setGeometry(0,320,800,280);
+    f->setPlayer(p->getAVPlayer());
+
+    connect(p,SIGNAL(frameChanged()),f,SLOT(drawFrames()));
+    connect(p,SIGNAL(playbackStop()),f,SLOT(clearFrames()));
+
 }
 
