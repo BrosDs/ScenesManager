@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
 
     connect(p,SIGNAL(frameChanged()),f,SLOT(drawFrames()));
     connect(p,SIGNAL(playbackStop()),f,SLOT(clearFrames()));
-    connect(p,SIGNAL(playbackPlay()),f,SLOT(drawFramesPlayback()));           //TODO: is this worth it?
+    //connect(p,SIGNAL(playbackPlay()),f,SLOT(drawFramesPlayback()));           //TODO: is this worth it?
 
 }
 

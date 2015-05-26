@@ -54,7 +54,9 @@ void FramesWidget::setPlayer(PlayerWidget *p){
 }
 
 void FramesWidget::drawFrames(){
-    clearFrames();
+    //TODO: cancellare i frame se ci sono
+    if(frame_num!=0)
+        clearFrames();
     calculateFrameNumberAndSize();
 
     for(int i = 0; i < frame_num; i++){
@@ -86,7 +88,8 @@ void FramesWidget::drawFrames(){
 
 //TODO: remove blinking effect due to clearFrames();
 void FramesWidget::drawFramesPlayback(){
-    clearFrames();
+    if(prev!=NULL)
+        clearFrames();
     calculateFrameNumberAndSize();
 
     for(int i = 0; i < frame_num; i++){
@@ -117,12 +120,16 @@ void FramesWidget::drawFramesPlayback(){
 }
 
 void FramesWidget::clearFrames(){
-    for(int i=0; i< frame_num; i++){
-        delete prev[i];
-        delete tile[i];
+    if(frame_num!=0){
+        for(int i=0; i < frame_num; i++){
+            if(prev[i]) delete prev[i];
+            if(tile[i]) delete tile[i];
+        }
+
+        delete prev;
+        delete tile;
     }
-    delete prev;
-    delete tile;
+    frame_num = 0;
 }
 
 void FramesWidget::calculateFrameNumberAndSize(){
