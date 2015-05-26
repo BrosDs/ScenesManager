@@ -38,38 +38,94 @@ FramesWidget::FramesWidget(QWidget *parent) : QWidget(parent)
     /** Calculate number of frames */
 
     prev = new VideoPreviewWidget*[frame_num];
+    tile = new QWidget*[frame_num];
+}
+
+FramesWidget::~FramesWidget(){
+    clearFrames();
+    delete this->player;
+    delete this->pw;
 }
 
 
-void FramesWidget::setPlayer(QtAV::AVPlayer* p){
-    this->player=p;
+void FramesWidget::setPlayer(PlayerWidget *p){
+    this->pw=p;
+    this->player=pw->getAVPlayer();
 }
 
-//TODO: check this
 void FramesWidget::drawFrames(){
+    clearFrames();
     calculateFrameNumberAndSize();
 
     for(int i = 0; i < frame_num; i++){
+        QVBoxLayout *ly = new QVBoxLayout();
+        tile[i] = new QWidget();
+        tile[i]->setLayout(ly);
+
         prev[i] = new VideoPreviewWidget();
         prev[i]->setFile(player->file());
-        prev[i]->setTimestamp(player->position() + (i-1)*42);
+        prev[i]->setTimestamp(pw->positionFromFrameNumber(pw->nextFrameNumber()+i-1));
+
         prev[i]->preview();
         prev[i]->setFixedSize(frame_w,frame_h);
-        base->addWidget(prev[i]);
+
+        ly->addWidget(prev[i]);
+        QLabel *lbl = new QLabel(QString::number(pw->currentFrameNumber()+i));
+        ly->addWidget(lbl);
+        lbl->setStyleSheet("QLabel { color : white; }");
+
+        if(i==1){
+            //Why is this the current frame?
+            tile[i]->setStyleSheet("QWidget{ background-color: grey; }");
+        }
+
+        base->addWidget(tile[i]);
+    }
+
+}
+
+//TODO: remove blinking effect due to clearFrames();
+void FramesWidget::drawFramesPlayback(){
+    clearFrames();
+    calculateFrameNumberAndSize();
+
+    for(int i = 0; i < frame_num; i++){
+        QVBoxLayout *ly = new QVBoxLayout();
+        tile[i] = new QWidget();
+        tile[i]->setLayout(ly);
+
+        prev[i] = new VideoPreviewWidget();
+        prev[i]->setFile(player->file());
+        prev[i]->setTimestamp(pw->positionFromFrameNumber(pw->nextFrameNumber()+i-1));
+
+        prev[i]->preview();
+        prev[i]->setFixedSize(frame_w,frame_h);
+
+        ly->addWidget(prev[i]);
+        QLabel *lbl = new QLabel(QString::number(pw->currentFrameNumber()+i));
+        ly->addWidget(lbl);
+        lbl->setStyleSheet("QLabel { color : white; }");
+
+        if(i==1){
+            //Why is this the current frame?
+            tile[i]->setStyleSheet("QWidget{ background-color: grey; }");
+        }
+
+        base->addWidget(tile[i]);
     }
 
 }
 
 void FramesWidget::clearFrames(){
-    for(int i=0; i< frame_num; i++)
+    for(int i=0; i< frame_num; i++){
         delete prev[i];
+        delete tile[i];
+    }
     delete prev;
+    delete tile;
 }
 
 void FramesWidget::calculateFrameNumberAndSize(){
-    clearFrames();
-
-
     int w = player->statistics().video_only.width;
     int h = player->statistics().video_only.height;
 
@@ -79,4 +135,5 @@ void FramesWidget::calculateFrameNumberAndSize(){
     frame_num = width()/frame_w;
 
     prev = new VideoPreviewWidget*[frame_num];
+    tile = new QWidget*[frame_num];
 }

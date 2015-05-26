@@ -22,11 +22,11 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
     FramesWidget *f = new FramesWidget(tl);
     base->addWidget(f);
 
-    f->setPlayer(p->getAVPlayer());
+    f->setPlayer(p);
 
     connect(p,SIGNAL(frameChanged()),f,SLOT(drawFrames()));
     connect(p,SIGNAL(playbackStop()),f,SLOT(clearFrames()));
-    //connect(p,SIGNAL(playbackPlay()),f,SLOT(drawFramesPlayback()));           //TODO: is this worth it?
+    connect(p,SIGNAL(playbackPlay()),f,SLOT(drawFramesPlayback()));           //TODO: is this worth it?
 
 }
 

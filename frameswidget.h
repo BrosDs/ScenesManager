@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtAV>
+#include "playerwidget.h"
 
 namespace QtAV{
 class VideoPreviewWidget;
@@ -23,9 +24,13 @@ private:
 
     QHBoxLayout *base;
 
+    PlayerWidget *pw;
     QtAV::AVPlayer *player;
 
+
+
     QtAV::VideoPreviewWidget **prev;
+    QWidget **tile;
 
     void calculateFrameNumberAndSize();
 
@@ -33,12 +38,14 @@ private:
 
 public:
     explicit FramesWidget(QWidget *parent = 0);
+    ~FramesWidget();
 
-    void setPlayer(QtAV::AVPlayer*);
+    void setPlayer(PlayerWidget*);
 
 private Q_SLOTS:
     void drawFrames();
     void clearFrames();
+    void drawFramesPlayback();
 
 signals:
 
