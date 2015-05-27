@@ -11,15 +11,18 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ScenesManager
 TEMPLATE = app
 
+CONFIG += console
 
 SOURCES += main.cpp\
-        mainwindow.cpp\
-        playerwidget.cpp\
-        frameswidget.cpp
+        MainWindow.cpp\
+        PlayerWidget.cpp\
+        FramesWidget.cpp\
+        StatisticsView.cpp
 
-HEADERS  += mainwindow.h\
-        playerwidget.h\
-        frameswidget.h
+HEADERS  += MainWindow.h\
+        PlayerWidget.h\
+        FramesWidget.h\
+        StatisticsView.h
 
 RESOURCES += \
     playericons.qrc

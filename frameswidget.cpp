@@ -32,8 +32,8 @@ FramesWidget::FramesWidget(QWidget *parent) : QWidget(parent)
 
 
     /** Widget minimum sizes */
-    setMinimumSize(800,180);
-    setFixedHeight(180);
+    setMinimumSize(800,200);
+    setFixedHeight(200);
 
     /** Calculate number of frames */
 
@@ -69,7 +69,7 @@ void FramesWidget::drawFrames(){
         prev[i]->setTimestamp(pw->positionFromFrameNumber(pw->nextFrameNumber()+i-1));
 
         prev[i]->preview();
-        prev[i]->setFixedSize(frame_w,frame_h);
+        prev[i]->setFixedSize(frame_w, frame_h);
 
         ly->addWidget(prev[i]);
         QLabel *lbl = new QLabel(QString::number(pw->currentFrameNumber()+i));
@@ -132,15 +132,27 @@ void FramesWidget::clearFrames(){
     frame_num = 0;
 }
 
+
 void FramesWidget::calculateFrameNumberAndSize(){
-    int w = player->statistics().video_only.width;
-    int h = player->statistics().video_only.height;
+    qDebug() << "Calculating" << endl;
+
+    qint64 w = player->statistics().video_only.coded_width;
+    qint64 h = player->statistics().video_only.coded_height;
+
 
     frame_h = 140;
-    frame_w = w / (h/frame_h);
+    double ratio = (double) ( (double) h / (double) frame_h);   //cast is necessary due to round ups
+    frame_w = w / ratio;
+
+    qDebug() << w << "x" << h << endl;
+    qDebug() << ratio << endl;
+    qDebug() << frame_w << "x" << frame_h << endl;
 
     frame_num = width()/frame_w;
 
     prev = new VideoPreviewWidget*[frame_num];
     tile = new QWidget*[frame_num];
 }
+
+
+

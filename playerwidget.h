@@ -7,6 +7,7 @@
 class QSlider;
 class QPushButton;
 class QLabel;
+class StatisticsView;
 /**
 *	PlayerWidget class.
 */
@@ -26,9 +27,9 @@ private:
     QPushButton *m_openBtn;		//TODO: remove this in the final version
     QPushButton *m_playBtn;
     QPushButton *m_stopBtn;
-    QPushButton *m_info;
     QPushButton *m_prevF;
     QPushButton *m_nextF;
+    QPushButton *m_info;
 
     //	Button's icons objects
     QPixmap play;
@@ -36,6 +37,7 @@ private:
     QPixmap stop;
     QPixmap prevF;
     QPixmap nextF;
+    QPixmap info;
 
     //	Help var
     bool playState;
@@ -46,6 +48,8 @@ private:
 
     // Signal emitter controller
     void emitterCheck();
+
+    StatisticsView *statistic_viewer;
 
     qint64 currentFrameNumber(qint64);
 
@@ -82,6 +86,7 @@ private Q_SLOTS:
 	void previousFrame();
 	void nextFrame();
 	
+    void showInfo();
 signals:
     void playbackStop();
     void frameChanged();

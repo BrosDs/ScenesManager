@@ -8,6 +8,7 @@
 #include <QtAVWidgets>
 #include <QLabel>
 #include <QHBoxLayout>
+#include <StatisticsView.h>
 
 using namespace QtAV;
 
@@ -82,11 +83,18 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
     m_nextF->setIconSize(nextF.rect().size());
     m_nextF->setFixedSize(nextF.rect().size());
 
-	m_openBtn->setToolTip("Open media file");
+
+    m_info = new QPushButton();
+    m_info->setIcon(QIcon(info));
+    m_info->setIconSize(info.rect().size());
+    m_info->setFixedSize(info.rect().size());
+
+    m_openBtn->setToolTip("Open media file");
 	m_playBtn->setToolTip("Play");
 	m_stopBtn->setToolTip("Stop");
 	m_prevF->setToolTip("Previous Frame");
 	m_nextF->setToolTip("Next Frame");
+    m_info->setToolTip("Media info");
 
 	//TODO: remove this in the final version
 	rows->addWidget(m_openBtn);
@@ -95,6 +103,7 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
     rows->addWidget(m_playBtn);
     rows->addWidget(m_stopBtn);
     rows->addWidget(m_nextF);
+    rows->addWidget(m_info);
 
 	//TODO: remove this in the final version
 	connect(m_openBtn, SIGNAL(clicked()), SLOT(openMedia()));
@@ -103,6 +112,7 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	connect(m_playBtn, SIGNAL(clicked()), SLOT(playPause()));
     connect(m_stopBtn, SIGNAL(clicked()), SLOT(stopVideo()));
 	connect(m_nextF, SIGNAL(clicked()), SLOT(nextFrame()));
+    connect(m_info, SIGNAL(clicked()), SLOT(showInfo()));
 
 	/** Widget minimum sizes */
     setMinimumSize(480,320);
@@ -119,6 +129,7 @@ void PlayerWidget::initializeIcons(){
     stop  = QPixmap(":/icons/stopB.png");
     prevF = QPixmap(":/icons/prevFB.png");
     nextF = QPixmap(":/icons/nextFB.png");
+    info = QPixmap(":/icons/infoB.png");
 }
 
 
@@ -255,6 +266,16 @@ qint64 PlayerWidget::currentFrameNumber(qint64 playerPosition){
     return ((playerPosition*m_player->statistics().video.frame_rate) / 1000LL);
 }
 
+
+void PlayerWidget::showInfo(){
+   if (!statistic_viewer)
+            statistic_viewer = new StatisticsView();
+        if (m_player)
+            statistic_viewer->setStatistics(m_player->statistics());
+        statistic_viewer->show();
+
+
+}
 
 void PlayerWidget::emitterCheck(){
     if(playState==false)

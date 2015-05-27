@@ -14,5 +14,8 @@
 
         <file alias="stopB.png">images/icons/stop_black.png</file>
         <file alias="stopW.png">images/icons/stop_white.png</file>
+
+        <file alias="infoB.png">images/icons/info_black.png</file>
+        <file alias="infoW.png">images/icons/info_white.png</file>
     </qresource>
 </RCC>
