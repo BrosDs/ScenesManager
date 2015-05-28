@@ -1,14 +1,14 @@
-#include "playerwidget.h"
+#include "PlayerWidget.h"
 
-#include <QPushButton>
+#include <StatisticsView.h>
+
+#include <QtAVWidgets>
 #include <QSlider>
 #include <QLayout>
+#include <QLabel>
+#include <QPushButton>
 #include <QMessageBox>
 #include <QFileDialog>
-#include <QtAVWidgets>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <StatisticsView.h>
 
 using namespace QtAV;
 

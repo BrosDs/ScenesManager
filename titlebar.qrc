@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="close_normal.png">images/icons/close_normal.png</file>
+        <file alias="maximize_normal.png">images/icons/maximize_normal.png</file>
+        <file alias="minimize_normal.png">images/icons/minimize_normal.png</file>
+        <file alias="restore_normal.png">images/icons/restore_normal.png</file>
+    </qresource>
+</RCC>

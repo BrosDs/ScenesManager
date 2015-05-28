@@ -6,7 +6,9 @@ int main(int argc, char *argv[])
 {
     QtAV::Widgets::registerRenderers();
     QApplication a(argc, argv);
-    MainWindow w  ;
+
+    MainWindow w;
+    w.setWindowFlags(Qt::FramelessWindowHint);
     w.show();
 
     return a.exec();

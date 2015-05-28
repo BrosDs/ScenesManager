@@ -1,4 +1,4 @@
-#include "frameswidget.h"
+#include "FramesWidget.h"
 
 #include <QtAVWidgets>
 #include <QLabel>

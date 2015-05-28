@@ -17,12 +17,23 @@ SOURCES += main.cpp\
         MainWindow.cpp\
         PlayerWidget.cpp\
         FramesWidget.cpp\
-        StatisticsView.cpp
+        StatisticsView.cpp \
+        TitleBar.cpp \
+        MenuBar.cpp \
+        HoverMoveFilter.cpp \
+        WindowTitleFilter.cpp \
+        MarkersWidget.cpp
 
 HEADERS  += MainWindow.h\
         PlayerWidget.h\
         FramesWidget.h\
-        StatisticsView.h
+        StatisticsView.h \
+        TitleBar.h \
+        MenuBar.h \
+        HoverMoveFilter.h \
+        WindowTitleFilter.h \
+        MarkersWidget.h
 
 RESOURCES += \
-    playericons.qrc
+    playericons.qrc \
+    titlebar.qrc

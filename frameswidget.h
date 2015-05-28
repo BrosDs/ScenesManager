@@ -27,14 +27,10 @@ private:
     PlayerWidget *pw;
     QtAV::AVPlayer *player;
 
-
-
     QtAV::VideoPreviewWidget **prev;
     QWidget **tile;
 
     void calculateFrameNumberAndSize();
-
-
 
 public:
     explicit FramesWidget(QWidget *parent = 0);

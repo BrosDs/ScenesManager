@@ -76,7 +76,6 @@ public:
     qint64 positionFromFrameNumber(qint64);
 
 private Q_SLOTS:
-	
 	void openMedia();
 	void seek(int);
 	void playPause();
@@ -87,6 +86,7 @@ private Q_SLOTS:
 	void nextFrame();
 	
     void showInfo();
+
 signals:
     void playbackStop();
     void frameChanged();
