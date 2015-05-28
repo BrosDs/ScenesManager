@@ -19,12 +19,19 @@ private:
     QString getStyle();
     void resetMargins(QBoxLayout *obj);
 
+    PlayerWidget *p;
+    MarkersWidget *m;
+    FramesWidget *f;
+
     // Titlebar
     QPoint mClickedPos;
     bool mMousePressed;
     bool left;
     bool right;
     bool bottom;
+
+private Q_SLOTS:
+    void openMedia();
 
 public:
     MainWindow(QWidget *parent = 0);

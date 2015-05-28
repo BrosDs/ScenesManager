@@ -10,6 +10,7 @@
 
 #include <QLayout>
 #include <QWidget>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
 {
@@ -63,13 +64,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
     menu_title->addWidget(menubar);
 
     // Player, marker and frames widgets
-    PlayerWidget *p = new PlayerWidget(mainWidget);
+    p = new PlayerWidget(mainWidget);
     centralLayout->addWidget(p);
 
-    MarkersWidget *m = new MarkersWidget(mainWidget);
+    m = new MarkersWidget(mainWidget);
     centralLayout->addWidget(m);
 
-    FramesWidget *f = new FramesWidget(mainWidget);
+    f = new FramesWidget(mainWidget);
     bottomLayout->addWidget(f);
 
     f->setPlayer(p);
@@ -78,6 +79,19 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
     connect(p,SIGNAL(playbackStop()),f,SLOT(clearFrames()));
     //connect(p,SIGNAL(playbackPlay()),f,SLOT(drawFramesPlayback()));           //TODO: is this worth it?
 
+    connect(menubar->actionOpen, SIGNAL(triggered()), this, SLOT(openMedia()));
+}
+
+/*! \brief open media file.
+*
+*	This functions is used to connect the "open" button.
+*/
+void MainWindow::openMedia()
+{
+    QString file = QFileDialog::getOpenFileName(0, "Open a video");
+    if (file.isEmpty())
+        return;
+    p->openFile(file);
 }
 
 
