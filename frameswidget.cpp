@@ -43,8 +43,9 @@ FramesWidget::FramesWidget(QWidget *parent) : QWidget(parent)
 
 FramesWidget::~FramesWidget(){
     clearFrames();
-    delete this->player;
-    delete this->pw;
+    if(player) delete player;
+    if(pw) delete pw;
+    if(base) delete base;
 }
 
 

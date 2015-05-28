@@ -54,7 +54,8 @@ private:
     qint64 currentFrameNumber(qint64);
 
 public:
-	explicit PlayerWidget(QWidget *parent = 0);
+    explicit PlayerWidget(QWidget *parent = 0);
+    ~PlayerWidget();
 	
 	QtAV::AVPlayer* getAVPlayer();
 

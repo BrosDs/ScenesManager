@@ -8,6 +8,7 @@
 #include <QtAVWidgets>
 #include <QLabel>
 #include <QHBoxLayout>
+#include <QShortcut>
 #include <StatisticsView.h>
 
 using namespace QtAV;
@@ -114,8 +115,36 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	connect(m_nextF, SIGNAL(clicked()), SLOT(nextFrame()));
     connect(m_info, SIGNAL(clicked()), SLOT(showInfo()));
 
+    QShortcut *s_open = new QShortcut(QKeySequence("Ctrl+O"), parent);
+    QShortcut *s_play = new QShortcut(QKeySequence(Qt::Key_Space), parent);
+    QShortcut *s_stop = new QShortcut(QKeySequence(Qt::Key_Delete), parent);
+    QShortcut *s_prev = new QShortcut(QKeySequence(Qt::Key_Left), parent);
+    QShortcut *s_next = new QShortcut(QKeySequence(Qt::Key_Right), parent);
+    QShortcut *s_info = new QShortcut(QKeySequence("Ctrl+I"), parent);
+
+    connect(s_open, SIGNAL(activated()), SLOT(openMedia()));
+    connect(s_play, SIGNAL(activated()), SLOT(playPause()));
+    connect(s_stop, SIGNAL(activated()), SLOT(stopVideo()));
+    connect(s_prev, SIGNAL(activated()), SLOT(previousFrame()));
+    connect(s_next, SIGNAL(activated()), SLOT(nextFrame()));
+    connect(s_info, SIGNAL(activated()), SLOT(showInfo()));
+
 	/** Widget minimum sizes */
     setMinimumSize(480,320);
+}
+
+PlayerWidget::~PlayerWidget(){
+    if(m_vo) delete m_vo;
+    if(m_player) delete m_player;
+    if(m_slider) delete m_slider;
+
+
+    if(m_openBtn) delete m_openBtn;
+    if(m_playBtn) delete m_playBtn;
+    if(m_stopBtn) delete m_stopBtn;
+    if(m_prevF) delete m_prevF;
+    if(m_nextF) delete m_nextF;
+    if(m_info)  delete m_info;
 }
 
 /*************************************************************************** PRIVATE METHODS ************/
