@@ -9,6 +9,7 @@ class HoverMoveFilter : public QObject
 
 public:
     HoverMoveFilter(QObject* parent);
+    ~HoverMoveFilter();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event);

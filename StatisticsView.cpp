@@ -163,6 +163,10 @@ StatisticsView::StatisticsView(QWidget *parent) :
     setLayout(vl);
 }
 
+StatisticsView::~StatisticsView()
+{
+}
+
 void StatisticsView::setStatistics(const Statistics& s)
 {
     mStatistics = s;

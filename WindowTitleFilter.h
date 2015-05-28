@@ -9,6 +9,7 @@ class WindowTitleFilter : public QObject
 
 public:
     WindowTitleFilter(QObject* parent);
+    ~WindowTitleFilter();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event);

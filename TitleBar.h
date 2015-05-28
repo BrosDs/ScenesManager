@@ -16,9 +16,9 @@ class TitleBar : public QWidget
 
 public:
     TitleBar(QWidget *parent, QWidget *mainw);
+    ~TitleBar();
     void titleChanged();
-
-    void TitleBar::paintEvent(QPaintEvent *);
+    void paintEvent(QPaintEvent *);
 
 public slots:
     void showSmall();

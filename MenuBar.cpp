@@ -6,34 +6,59 @@ MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
     setObjectName("menubar");
     setStyleSheet(getStyle());
 
-    QMenu* menu1 = new QMenu("File", this);
-    actionHouses = new QAction("Houses",menu1);
-    actionOpen = new QAction("Open Media",menu1);
-    actionExit = new QAction("Exit",menu1);
-    menu1->addAction(actionHouses);
-    menu1->addAction(actionOpen);
-    menu1->addAction(actionExit);
+    QMenu* media = new QMenu("Media", this);
+    actMediaOpen = new QAction("Open Media",media);
+    actMediaPP = new QAction("Play/Pause",media);
+    actMediaStop = new QAction("Stop",media);
+    actMediaPF = new QAction("Previous Frame",media);
+    actMediaNF = new QAction("Next Frame",media);
+    actMediaInfo = new QAction("Media Info",media);
+    actExit = new QAction("Exit",media);
+    media->addAction(actMediaOpen);
+    media->addAction(actMediaInfo);
+    media->addSeparator();
+    media->addAction(actMediaPP);
+    media->addAction(actMediaStop);
+    media->addAction(actMediaPF);
+    media->addAction(actMediaNF);
+    media->addSeparator();
+    media->addAction(actExit);
 
-    QMenu* menu2 = new QMenu("Others", this);
-    actionCiaoDario = new QAction("Ciao Dario",menu2);
-    actionCiaoRava = new QAction("Ciao Rava",menu2);
-    menu2->addAction(actionCiaoDario);
-    menu2->addAction(actionCiaoRava);
+    QMenu* markers = new QMenu("Markers", this);
+    actMarkersNew = new QAction("New Marker",markers);
+    actMarkersOpen = new QAction("Open Marker",markers);
+    actMarkersSS = new QAction("Set Scene Start",markers);
+    actMarkersSE = new QAction("Set Scene End",markers);
+    markers->addAction(actMarkersNew);
+    markers->addAction(actMarkersOpen);
+    markers->addAction(actMarkersSS);
+    markers->addAction(actMarkersSE);
 
-    QMenu* menu3 = new QMenu("Help", this);
-    actionAbout = new QAction("About",menu3);
-    action30L = new QAction("30L easy gg wp",menu3);
-    menu3->addAction(actionAbout);
-    menu3->addAction(action30L);
+    QMenu* video = new QMenu("Video", this);
+    actVideoPM = new QAction("Presentation Mode",video);
+    actVideoMax = new QAction("Maximize",video);
+    video->addAction(actVideoPM);
+    video->addAction(actVideoMax);
 
-    addMenu(menu1);
-    addMenu(menu2);
-    addMenu(menu3);
+    QMenu* help = new QMenu("Help", this);
+    actHelp = new QAction("About (credits)",help);
+    help->addAction(actHelp);
 
+    addMenu(media);
+    addMenu(markers);
+    addMenu(video);
+    addMenu(help);
+
+    setMinimumHeight(30);
     setMaximumHeight(30);
 }
 
-QString MenuBar::getStyle(){
+MenuBar::~MenuBar()
+{
+}
+
+QString MenuBar::getStyle()
+{
     return R"(
         /*#menubar*/
         #menubar {background-color:#0088cc;}
@@ -59,16 +84,3 @@ QString MenuBar::getStyle(){
           color: #353535;}
     )";
 }
-
-/*! \brief open media file.
-*
-*	This functions is used to connect the "open" button.
-*/
-QString MenuBar::openMedia()
-{
-    QString file = QFileDialog::getOpenFileName(0, "Open a video");
-    if (file.isEmpty())
-        return "";
-    return file;
-}
-

@@ -33,6 +33,7 @@ class StatisticsView : public QDialog
     Q_OBJECT
 public:
     explicit StatisticsView(QWidget *parent = 0);
+    ~StatisticsView();
     void setStatistics(const Statistics &s);
 
 protected:

@@ -51,7 +51,12 @@ TitleBar::TitleBar(QWidget *parent, QWidget *mainw) : QWidget(parent)
     connect(mMaximizeButton, SIGNAL(clicked()), this, SLOT(showMaxRestore()));
 }
 
-QString TitleBar::getStyle(){
+TitleBar::~TitleBar()
+{
+}
+
+QString TitleBar::getStyle()
+{
     return R"(
         #titlebar {
             background-color:#0088cc;

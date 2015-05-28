@@ -12,20 +12,29 @@ class MenuBar : public QMenuBar
 
 public:
     MenuBar(QWidget *parent);
+    ~MenuBar();
 
-    QString openMedia();
+    /* Media */
+    QAction* actMediaOpen;
+    QAction* actMediaPP;
+    QAction* actMediaStop;
+    QAction* actMediaPF;
+    QAction* actMediaNF;
+    QAction* actMediaInfo;
+    QAction* actExit;
 
-    /* File */
-    QAction* actionHouses;
-    QAction* actionOpen;
-    QAction* actionExit;
-    /* Others */
-    QAction* actionCiaoDario;
-    QAction* actionCiaoRava;
+    /* Markers */
+    QAction* actMarkersNew;
+    QAction* actMarkersOpen;
+    QAction* actMarkersSS;
+    QAction* actMarkersSE;
+
+    /* Video */
+    QAction* actVideoPM;
+    QAction* actVideoMax;
+
     /* Help */
-    QAction* actionAbout;
-    QAction* action30L;
-
+    QAction* actHelp;
 };
 
 #endif // MENUBAR_H

@@ -79,7 +79,11 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
     connect(p,SIGNAL(playbackStop()),f,SLOT(clearFrames()));
     //connect(p,SIGNAL(playbackPlay()),f,SLOT(drawFramesPlayback()));           //TODO: is this worth it?
 
-    connect(menubar->actionOpen, SIGNAL(triggered()), this, SLOT(openMedia()));
+    connect(menubar->actMediaOpen, SIGNAL(triggered()), this, SLOT(openMedia()));
+}
+
+MainWindow::~MainWindow()
+{
 }
 
 /*! \brief open media file.

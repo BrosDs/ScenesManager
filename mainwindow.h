@@ -35,6 +35,7 @@ private Q_SLOTS:
 
 public:
     MainWindow(QWidget *parent = 0);
+    ~MainWindow();
 
     // Mouse events
     void mousePressEvent(QMouseEvent *e);

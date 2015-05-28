@@ -31,6 +31,5 @@ MarkersWidget::MarkersWidget(QWidget *parent) : QWidget(parent)
 
 MarkersWidget::~MarkersWidget()
 {
-
 }
 

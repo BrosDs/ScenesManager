@@ -7,6 +7,10 @@ HoverMoveFilter::HoverMoveFilter(QObject *parent) :
 {
 }
 
+HoverMoveFilter::~HoverMoveFilter()
+{
+}
+
 bool HoverMoveFilter::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::HoverMove) {

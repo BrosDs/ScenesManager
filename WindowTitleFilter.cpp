@@ -7,6 +7,10 @@ WindowTitleFilter::WindowTitleFilter(QObject *parent) :
 {
 }
 
+WindowTitleFilter::~WindowTitleFilter()
+{
+}
+
 bool WindowTitleFilter::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::WindowTitleChange) {
